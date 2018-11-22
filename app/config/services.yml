@@ -33,3 +33,9 @@ services:
     # AppBundle\Service\ExampleService:
     #     arguments:
     #         $someArgument: 'some_value'
+
+    AppBundle\Command\ImportProductCommand:
+        arguments:
+            $rootDir: %kernel.root_dir%
+            $factory: '@lock.default.factory'
+
