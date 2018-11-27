@@ -9,3 +9,5 @@ allez petit a petit
 petite modif on push on test et on passe la prochaine modif
 
 utliser l ide pour extraire du code a l extérieure 
+
+faire émerger des classes penser design pattern
