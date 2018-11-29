@@ -5,3 +5,6 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" &&
     php composer-setup.php --install-dir=bin --filename=composer && \
     php -r "unlink('composer-setup.php');"
 RUN composer --version
+RUN docker-php-ext-install pcntl
+RUN apt-get update && apt-get install -y git
+RUN pecl install redis && docker-php-ext-enable redis
