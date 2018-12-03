@@ -36,7 +36,6 @@ framework:
         path: /_fragment
 
 
-
 # Twig Configuration
 twig:
     debug: '%kernel.debug%'
@@ -75,3 +74,16 @@ swiftmailer:
 sensio_framework_extra:
    router:
         annotations: false
+
+fos_http_cache:
+    cache_control:
+        defaults:
+            overwrite: true
+        rules:
+        -
+            match:
+                path: ^/foshttp$
+            headers:
+                cache_control: { public: true, max_age: 10, s_maxage: 10 }
+                etag: true
+                vary: [Accept-Encoding, Accept-Language]
