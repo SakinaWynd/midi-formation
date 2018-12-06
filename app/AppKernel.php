@@ -1,38 +1,49 @@
 <?php
 
+namespace App;
+
+use FOS\HttpCache\SymfonyCache\HttpCacheAware;
+use FOS\HttpCache\SymfonyCache\HttpCacheProvider;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Config\Loader\LoaderInterface;
 
-class AppKernel extends Kernel
+class AppKernel extends Kernel implements HttpCacheProvider
 {
+    use HttpCacheAware;
+
+    public function __construct($environment, $debug)
+    {
+        parent::__construct($environment, $debug);
+        $this->setHttpCache(new \AppCache($this));
+    }
+
+
     public function registerBundles()
     {
         $bundles = [
-            new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
-            new Symfony\Bundle\SecurityBundle\SecurityBundle(),
-            new Symfony\Bundle\TwigBundle\TwigBundle(),
-            new Symfony\Bundle\MonologBundle\MonologBundle(),
-            new Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle(),
-            new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
-            new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
+            new \Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
+            new \Symfony\Bundle\SecurityBundle\SecurityBundle(),
+            new \Symfony\Bundle\TwigBundle\TwigBundle(),
+            new \Symfony\Bundle\MonologBundle\MonologBundle(),
+            new \Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle(),
+            new \Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
+            new \Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new \FOS\HttpCacheBundle\FOSHttpCacheBundle(),
-            new AppBundle\AppBundle(),
-            new FOS\HttpCacheBundle\FOSHttpCacheBundle(),
-
+            new \AppBundle\AppBundle(),
 
 
 
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
-            $bundles[] = new Symfony\Bundle\DebugBundle\DebugBundle();
-            $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
-            $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
+            $bundles[] = new \Symfony\Bundle\DebugBundle\DebugBundle();
+            $bundles[] = new \Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
+            $bundles[] = new \Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
 
             if ('dev' === $this->getEnvironment()) {
-                $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
-                $bundles[] = new Symfony\Bundle\WebServerBundle\WebServerBundle();
+                $bundles[] = new \Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
+                $bundles[] = new \Symfony\Bundle\WebServerBundle\WebServerBundle();
             }
         }
 

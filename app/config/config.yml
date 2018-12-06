@@ -76,6 +76,15 @@ sensio_framework_extra:
         annotations: false
 
 fos_http_cache:
+    proxy_client:
+        symfony:
+                        # for single server installations:
+            use_kernel_dispatcher: true
+            #http:
+            #    servers:
+            #    - 123.123.123.1:6060
+            #    - 123.123.123.2
+             #   base_url: yourwebsite.com
     cache_control:
         defaults:
             overwrite: true
@@ -87,3 +96,14 @@ fos_http_cache:
                 cache_control: { public: true, max_age: 10, s_maxage: 10 }
                 etag: true
                 vary: [Accept-Encoding, Accept-Language]
+    invalidation:
+        enabled: true    # Defaults to 'auto'
+        rules:
+        - match:
+              attributes:
+                  _route: "editPosts"
+          routes:
+              show: ~
+              list:
+                  ignore_extra_params: false    # Defaults to true
+

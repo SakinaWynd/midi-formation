@@ -21,7 +21,11 @@ if (isset($_SERVER['HTTP_CLIENT_IP'])
 require __DIR__.'/../vendor/autoload.php';
 Debug::enable();
 
-$kernel = new AppKernel('dev', true);
+$env = 'dev';
+$kernel = new \App\AppKernel('dev', true);
+if('prod' === $env){
+    $kernel = $kernel->getHttpCache();
+}
 if (PHP_VERSION_ID < 70000) {
     $kernel->loadClassCache();
 }

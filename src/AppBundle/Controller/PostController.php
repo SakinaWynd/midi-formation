@@ -14,15 +14,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class PostController extends Controller
 {
-    /**
-     * @Route("/post/{id}")
-     * @Method("GET")
-     * @Cache(smaxage="15")
-     */
-    public function indexAction()
-    {
-        return  (new Response(uniqid()));
-    }
 
     /**
      * @Route("/foshttp")
@@ -41,6 +32,30 @@ class PostController extends Controller
     public function commentAction()
     {
         return  (new Response('FOSHTTP: '.uniqid()));
+    }
+
+    /**
+    * @Route("/edit/{id}", methods={"POST"}, name="editPosts")
+    */
+    public function editAction($id){
+        return  (new Response(sprintf('Article %s updates', $id)));
+    }
+
+    /**
+    * @Route("/post/{id}", name="show")
+     * @Cache(smaxage="86400")
+     */
+    public function showAction($id){
+        return  (new Response(sprintf('Show Article id = %s à %s', $id, (new \DateTime())->format('H:m:s'))));
+    }
+
+    /**
+    * @Route("/posts", name="list")
+    * @Cache(smaxage="86400")
+    **/
+    public function listAction(){
+        return  (new Response(sprintf('List des artcles à %s', (new \DateTime())->format('H:m:s'))));
+
     }
 
 
