@@ -35,7 +35,6 @@ framework:
         enabled: true
         path: /_fragment
 
-
 # Twig Configuration
 twig:
     debug: '%kernel.debug%'
